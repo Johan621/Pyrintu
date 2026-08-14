@@ -447,3 +447,278 @@ Each screen must define:
 ## Status
 
 This document is intentionally incomplete. We will fill it one screen at a time, review it, then freeze UX V1 before technical architecture begins.
+
+# Screen 2 — Sign Up / Sign In
+
+## Purpose
+
+Allow new and returning users to securely access Pyrintu while minimizing friction and establishing trust.
+
+## Authentication Methods
+
+### Supported Providers
+
+- Continue with Google
+- Continue with LinkedIn
+- Continue with Phone Number (OTP)
+
+Authentication provider is separate from the Pyrintu user account.
+
+Multiple authentication methods may be linked to a single Pyrintu account.
+
+## User Goal
+
+Access Pyrintu as quickly as possible without completing unnecessary profile information.
+
+## Entry Experience
+
+### Heading
+
+Welcome to Pyrintu
+
+### Supporting Copy
+
+Meet people. Build something real.
+
+### Primary Actions
+
+- Continue with Google
+- Continue with LinkedIn
+- Continue with Phone Number
+
+### Divider
+
+or
+
+### Phone Flow
+
+Enter Phone Number
+
+Send OTP
+
+## Authentication Flow
+
+### Existing User
+
+Authentication
+→ Identity Found
+→ Sign In
+→ Open Pyrintu
+
+### New User
+
+Authentication
+→ Identity Verified
+→ Create Pyrintu Account
+→ Continue to Onboarding
+
+### Partial Onboarding
+
+If onboarding was not completed previously:
+
+Welcome back. Let's continue where you left off.
+
+## Google Authentication
+
+Purpose:
+
+- Fast onboarding
+- Trusted identity verification
+
+Only minimum required identity information is requested.
+
+## LinkedIn Authentication
+
+Purpose:
+
+- Professional identity verification
+- Reduced onboarding friction
+
+LinkedIn information must never be used as a measure of social value.
+
+## Phone OTP Authentication
+
+### Step 1
+
+Phone Number Input
+
+Default country:
+
+India (+91)
+
+### Step 2
+
+OTP Verification
+
+Actions:
+
+- Verify
+- Resend Code
+- Change Number
+
+## Age Gate
+
+Question:
+
+Are you 18 or older?
+
+Options:
+
+- Yes, I'm 18+
+- No
+
+Users below the minimum age requirement cannot proceed.
+
+## Terms & Privacy
+
+Before account creation:
+
+By continuing, you agree to Pyrintu's Terms and Privacy Policy.
+
+Marketing consent must remain optional and separate.
+
+## AI Behavior
+
+AI is not involved in authentication decisions.
+
+AI may assist later onboarding flows but does not determine authentication success.
+
+## Deterministic Behavior
+
+Authentication outcome is based only on:
+
+- Provider verification
+- OTP verification
+- Account existence checks
+
+## Loading State
+
+Examples:
+
+Connecting to Google...
+
+Connecting to LinkedIn...
+
+Verifying code...
+
+Buttons become temporarily disabled during processing.
+
+## Empty State
+
+No authentication method selected.
+
+User is shown available authentication options.
+
+## Error State
+
+### Google Failure
+
+Google sign-in isn't available right now.
+
+### LinkedIn Failure
+
+LinkedIn sign-in isn't available right now.
+
+### Invalid OTP
+
+That code doesn't look right.
+
+### Expired OTP
+
+That code has expired.
+
+### Network Failure
+
+We couldn't complete that request.
+
+## Recovery State
+
+Every failure path provides recovery options.
+
+Examples:
+
+- Retry
+- Use another method
+- Resend OTP
+- Change phone number
+- Account recovery
+
+## Privacy Implications
+
+Authentication data must be protected.
+
+Personal information is not automatically public.
+
+Sensitive authentication secrets are never exposed.
+
+## Safety Implications
+
+Authentication contributes to trust but does not automatically create a trusted reputation.
+
+Identity state and safety state remain separate.
+
+## Analytics Events
+
+- auth_screen_viewed
+- google_auth_started
+- google_auth_succeeded
+- google_auth_failed
+- linkedin_auth_started
+- linkedin_auth_succeeded
+- linkedin_auth_failed
+- phone_auth_started
+- otp_sent
+- otp_verified
+- otp_failed
+- auth_completed
+- auth_abandoned
+- age_gate_completed
+- terms_accepted
+
+No phone numbers, emails, tokens, or OTP values may be stored in analytics events.
+
+## Accessibility Requirements
+
+- Keyboard accessible
+- Screen-reader compatible
+- Logical focus order
+- Visible focus indicators
+- Sufficient contrast
+- Touch-friendly controls
+- Reduced-motion support
+
+## Acceptance Criteria
+
+### Authentication
+
+- Google authentication works
+- LinkedIn authentication works
+- Phone OTP authentication works
+
+### Account Integrity
+
+- Duplicate account creation is prevented
+- Multiple providers can link to one account
+- Partial onboarding resumes correctly
+
+### Trust
+
+- Age gate exists
+- Terms and Privacy are accessible
+
+### User Experience
+
+- Unified sign-in experience
+- Clear loading states
+- Clear error states
+- Recovery available for all failures
+
+### Accessibility
+
+- Keyboard accessible
+- Screen-reader compatible
+- Mobile-friendly
+
+### Privacy
+
+- No sensitive authentication information is stored in analytics
