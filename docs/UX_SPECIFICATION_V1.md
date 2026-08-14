@@ -2305,3 +2305,634 @@ The experience should make the user feel understood without implying that Pyrint
 ## Lock Note
 
 Screen 5 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-5`; implementation remains separate from the UX specification.
+
+# Screen 6 — Social Preferences
+
+**Status:** Approved / ready to lock
+
+## Core Objective
+
+Answer:
+
+`What kind of social experience feels right for you?`
+
+Capture:
+
+- how the user likes to meet
+- who and what environments feel comfortable
+- communication style
+- group preferences
+- activity vs conversation preference
+- planning style
+- social boundaries
+- preference importance
+- preference confidence
+
+The screen should understand social behavior without forcing psychological or personality labels.
+
+## Opening Experience
+
+### Heading
+
+`Let's understand how you like to connect.`
+
+### Supporting text
+
+`There is no "right" way to socialize. Tell Pyrintu what feels natural to you.`
+
+### Reassurance
+
+`You can change these preferences anytime.`
+
+## Preference Importance Model
+
+Every major preference can have an importance level:
+
+### Flexible
+
+`Nice to have`
+
+### Important
+
+`I'd prefer this`
+
+### Boundary
+
+`This really matters to me`
+
+This distinction separates soft preferences from meaningful constraints.
+
+## Section — How Do You Like to Meet?
+
+### Heading
+
+`What kind of first interaction feels natural?`
+
+Options:
+
+- Activity first
+- Conversation first
+- Small group first
+- One-on-one first
+- Casual drop-in
+- Structured activity
+- Exploring somewhere together
+
+Multiple selections are allowed.
+
+Each selection can be marked:
+
+- Nice to have
+- Important
+- Boundary
+
+## Section — Group Comfort
+
+### Heading
+
+`What's your comfortable group size?`
+
+Options:
+
+- 1 person
+- 2–3 people
+- 4–5 people
+- 6–8 people
+- Flexible
+
+Then ask:
+
+`How important is group size to you?`
+
+Example:
+
+`4–5 people — Boundary`
+
+## Section — Conversation Style
+
+### Heading
+
+`What kind of conversations do you enjoy?`
+
+Options:
+
+- Deep conversations
+- Casual conversations
+- Humor and banter
+- Sharing ideas
+- Learning from each other
+- Talking about hobbies
+- Professional conversations
+- Quiet / low-pressure interaction
+
+Avoid psychological labels.
+
+## Section — Social Environment
+
+### Heading
+
+`What kind of environment helps you enjoy the experience?`
+
+Options:
+
+- Calm
+- Lively
+- Quiet
+- Energetic
+- Outdoor
+- Indoor
+- Structured
+- Spontaneous
+
+Then ask:
+
+`Which environments do you generally avoid?`
+
+Users can distinguish soft preferences from stronger boundaries.
+
+## Section — Activity vs Conversation
+
+### Heading
+
+`When meeting someone new, what helps most?`
+
+Use a simple spectrum:
+
+`More activity — Balanced — More conversation`
+
+The user can place a marker anywhere on the spectrum.
+
+Provide an accessible categorical alternative:
+
+- Activity-first
+- Balanced
+- Conversation-first
+
+This becomes a continuous preference signal where supported without excluding keyboard or screen-reader users.
+
+## Section — Getting Comfortable
+
+### Heading
+
+`How do you usually warm up to new people?`
+
+Options:
+
+- I open up quickly
+- I prefer a little time
+- Activity helps me relax
+- I like someone else starting the conversation
+- I prefer observing first
+- It depends on the situation
+
+This is a matching signal and must not be presented as a public personality judgment.
+
+## Section — Communication Style
+
+### Heading
+
+`What communication style feels best to you?`
+
+Options:
+
+- Direct
+- Friendly and casual
+- Thoughtful
+- Playful
+- Practical
+- Low-pressure
+
+Then ask:
+
+`Anything you'd rather avoid?`
+
+Examples:
+
+- Constant messaging
+- Very personal questions early
+- Aggressive networking
+- Large group chatter
+- High-pressure invitations
+
+## Section — Planning Style
+
+### Heading
+
+`How do you like plans to happen?`
+
+Options:
+
+- Plan ahead
+- A little notice is enough
+- Spontaneous is fine
+- Depends on the activity
+
+Then:
+
+`How much flexibility do you usually have?`
+
+Detailed schedule data belongs to Screen 7 — Availability and should not be duplicated here.
+
+## Section — What Are You Open To?
+
+### Heading
+
+`What kinds of connections feel meaningful to you?`
+
+Options:
+
+- New friends
+- Activity partners
+- Professional connections
+- Learning connections
+- Local communities
+- People with shared interests
+- Exploring a new city
+- Collaborative projects
+
+The user may select multiple options.
+
+Pyrintu must not assume all users want the same relationship type.
+
+## Section — Social Boundaries
+
+### Heading
+
+`What should Pyrintu avoid?`
+
+Examples:
+
+- Large groups
+- Last-minute plans
+- Very crowded places
+- Loud environments
+- Alcohol-centered settings
+- Competitive activities
+- Professional networking
+- One-on-one first meetings
+- Long-distance travel for meetups
+
+The user controls which boundaries matter.
+
+## Boundary Language
+
+Pyrintu should say:
+
+`We'll try to avoid opportunities that conflict with your preferences.`
+
+And:
+
+`Preferences aren't guarantees. Some situations may not fit perfectly.`
+
+The product must not overpromise perfect matching.
+
+## Preference Confidence
+
+Allow users to express certainty:
+
+- I'm sure
+- Somewhat
+- Still figuring it out
+
+This lets Pyrintu distinguish stronger signals from tentative ones.
+
+## Natural-Language Mode
+
+Offer an alternative entry path:
+
+### Prompt
+
+`Rather type it?`
+
+Example input:
+
+`I usually like small groups, prefer doing something rather than sitting and talking, and I'm okay with spontaneous plans.`
+
+Action:
+
+`Structure this for me`
+
+Pyrintu may convert this into a structured preview:
+
+- Group size → Small
+- Interaction → Activity-first
+- Planning → Flexible
+
+The user must review before accepting.
+
+## AI Behavior
+
+AI may:
+
+- extract preference signals
+- identify contradictions
+- ask for clarification
+- summarize the user's preferences
+
+AI must not silently create hard boundaries.
+
+Example:
+
+User: `I generally prefer quieter places.`
+
+Pyrintu should ask:
+
+`I understood "quieter places" as a preference. Is that right?`
+
+Actions:
+
+- Yes
+- Make this important
+- Make this a boundary
+
+## Contradiction Handling
+
+If the user selects contradictory preferences, do not silently choose one.
+
+Example:
+
+`Large groups — Important`
+
+and
+
+`Small groups — Important`
+
+Prompt:
+
+`You selected both small and large groups as important.`
+
+Then:
+
+`Would you like to prioritize one, or keep both flexible?`
+
+Actions:
+
+- Prefer small groups
+- Prefer large groups
+- Keep both
+
+## Preference Summary
+
+At completion, show:
+
+### `Here's what feels right for you`
+
+Example:
+
+> **Small groups** — You prefer 3–5 people.
+>
+> **Activity-first** — You enjoy having something to do while meeting.
+>
+> **Calmer environments** — You generally prefer quieter spaces.
+>
+> **Flexible planning** — You're comfortable with both planned and spontaneous opportunities.
+
+Each summary item should show its importance where useful.
+
+## Explainability
+
+Allow:
+
+`Why does this matter?`
+
+Example:
+
+`We use this preference when comparing possible people, groups, activities, and environments.`
+
+Every preference should be easy to change.
+
+## Preference Influence
+
+Do not expose matching coefficients or numerical weights.
+
+Instead show human language such as:
+
+- Very important to you
+- Important to you
+- Flexible
+
+The underlying matching algorithm belongs to technical architecture.
+
+## Privacy
+
+Social preferences may be:
+
+- Pyrintu-only
+- Shared selectively when relevant
+- Private
+
+The default should favor minimum exposure.
+
+Sensitive social preferences are not automatically visible to other users.
+
+## Safety Boundaries
+
+Preferences that affect safety should influence opportunity formation without exposing the private reason to other users.
+
+For example:
+
+`I don't want one-on-one first meetings.`
+
+This can affect recommendations without becoming public profile information.
+
+## Autosave
+
+Preferences should save progressively.
+
+States:
+
+`Saving…`
+
+`Saved`
+
+If synchronization fails:
+
+`Couldn't save this change. We'll retry.`
+
+Previously saved preferences remain safe.
+
+## Error States
+
+### AI unavailable
+
+`Pyrintu can't structure this right now.`
+
+Actions:
+
+- Try again
+- Keep writing manually
+
+### Save failure
+
+`We couldn't save that preference.`
+
+Action:
+
+`Retry`
+
+### Network failure
+
+`You're offline. Your changes will sync when you're back online.`
+
+The exact offline persistence architecture belongs to technical design.
+
+## Completion State
+
+### Heading
+
+`Your social preferences are ready.`
+
+### Supporting message
+
+`Pyrintu has a clearer picture of what kind of experiences fit you.`
+
+### Primary CTA
+
+`Continue`
+
+Destination:
+
+`Screen 7 — Availability`
+
+### Secondary action
+
+`Review preferences`
+
+## Editing After Onboarding
+
+Users can later access:
+
+`Profile → Social Preferences`
+
+and change any preference.
+
+Changes take effect prospectively.
+
+## First-Time User Guide
+
+### Guide 03 — Social Preferences
+
+**Target:** `Your Preferences`
+
+**Message:** `Tell us what kind of people, activities, group sizes, and environments feel right for you.`
+
+Contextual guidance should appear only when needed and must never block primary controls.
+
+## Accessibility Requirements
+
+- All chips usable by keyboard
+- Checkbox and radio semantics where applicable
+- Slider exposes accessible value
+- Screen-reader labels describe selection and importance
+- Progress state announced
+- Errors announced
+- No color-only importance indicators
+- Sufficient contrast
+- Reduced-motion support
+- Touch-friendly controls
+
+For the activity/conversation spectrum, provide the accessible alternatives:
+
+- Activity-first
+- Balanced
+- Conversation-first
+
+## Responsive Behavior
+
+### Mobile
+
+Structure:
+
+`Question → Options → Importance → Explanation → Next`
+
+Only one major decision should dominate the viewport.
+
+### Desktop
+
+A two-column layout may be used:
+
+- Left: questions and controls
+- Right: live preference summary
+
+The information hierarchy remains equivalent.
+
+## Analytics Events
+
+- social_preferences_viewed
+- social_preferences_started
+- social_preference_selected
+- social_preference_importance_changed
+- social_preference_removed
+- natural_language_preference_started
+- ai_preference_structuring_requested
+- ai_preference_structuring_accepted
+- ai_preference_structuring_edited
+- ai_preference_structuring_rejected
+- preference_conflict_detected
+- preference_conflict_resolved
+- social_preferences_saved
+- social_preferences_completed
+- social_preferences_abandoned
+
+Never send raw personal preference text to generic analytics.
+
+## Matching Boundary
+
+This screen collects signals. It does not expose the matching algorithm.
+
+Later Match Reasoning may explain relevant signals in human terms.
+
+## Acceptance Criteria
+
+### User Understanding
+
+- User understands why preferences are collected.
+- User understands importance levels.
+- User can change preferences later.
+
+### Matching Quality
+
+- Strong preferences can be distinguished from soft preferences.
+- Boundaries are distinguishable from simple likes.
+- Uncertainty can be represented.
+- Contradictions are resolved explicitly.
+
+### AI
+
+- AI assists with structuring.
+- AI explanations are visible.
+- AI cannot silently create hard constraints.
+- AI failure does not block completion.
+
+### Privacy
+
+- Sensitive social preferences are not automatically public.
+- User controls visibility.
+
+### UX
+
+- Progress feels lightweight.
+- No personality-label dependency.
+- User receives a useful preference summary.
+
+### Accessibility
+
+- Keyboard accessible.
+- Screen-reader compatible.
+- Mobile accessible.
+
+## Final Intended Experience
+
+```text
+"Finally, Pyrintu asked how I actually like meeting people."
+        ↓
+"I can be specific without being labeled."
+        ↓
+"Pyrintu understands what matters to me."
+        ↓
+"I can change it whenever I want."
+```
+
+## Lock Note
+
+Screen 6 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-6`; implementation remains separate from the UX specification.
