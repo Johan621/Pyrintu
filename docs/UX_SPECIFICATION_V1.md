@@ -1,6 +1,6 @@
 # PYRINTU — UX SPECIFICATION V1.0
 
-**Status:** Draft / Next active workstream
+**Status:** Screen 1 approved; remaining screens in draft / next active workstream
 
 ## Purpose
 
@@ -119,6 +119,276 @@ Example intent:
 **Target:** `Post-Meet Feedback`
 
 **Message:** `Your private feedback helps Pyrintu improve future matches and group formation.`
+
+## Screen 1 — Landing / Marketing Page
+
+**Status:** Approved / ready to lock
+
+### Purpose
+
+Help the right visitor understand Pyrintu quickly and begin the first meaningful connection journey.
+
+### Primary product message
+
+**Headline:** `Meet people. Build something real.`
+
+**Supporting text:** `Pyrintu helps you find compatible people, create real-world experiences together, and turn promising connections into meaningful relationships.`
+
+**Primary CTA:** `Get Started`
+
+**Secondary CTA:** `See How It Works`
+
+`Get Started` begins the signup/onboarding flow. `See How It Works` scrolls to the explanation on the same page.
+
+### Navigation
+
+Desktop navigation should expose:
+
+- Pyrintu
+- How It Works
+- Safety
+- About
+- Sign In
+- Get Started
+
+Mobile navigation should collapse to the essential links behind a menu.
+
+### Hero
+
+**Eyebrow:** `REAL CONNECTIONS, NOT ENDLESS MATCHING`
+
+**Headline:** `Meet people. Build something real.`
+
+**Supporting text:** `Find people who fit the kind of connection you're looking for, meet through shared experiences, and give promising relationships a chance to grow.`
+
+**Primary CTA:** `Get Started →`
+
+**Secondary CTA:** `See How It Works`
+
+The hero visual should communicate the progression `You → compatible people → small group → shared activity → relationship`.
+
+The visual style should be warm, premium, human, and modern. Avoid generic AI robots, corporate SaaS dashboards, or dating-app visual language.
+
+Animation is optional and must never be required to understand the product.
+
+### Core differentiation
+
+**Heading:** `Not more matches. Better connections.`
+
+Three supporting concepts:
+
+#### 01 — Understand You
+
+`Pyrintu learns the kinds of people, activities, environments, and experiences that actually fit you.`
+
+#### 02 — Find Mutuality
+
+`Compatibility isn't enough. Pyrintu looks for genuine willingness from both sides to invest effort.`
+
+#### 03 — Build Momentum
+
+`A promising connection shouldn't disappear after one interaction. Pyrintu helps relationships move forward naturally.`
+
+### How Pyrintu works
+
+**Heading:** `From “Nice to meet you” to “See you again.”`
+
+1. **Tell us about you** — interests, preferences, and social style.
+2. **Tell us what you want** — describe the desired connection or experience naturally.
+3. **Meet a compatible opportunity** — Pyrintu explains why the recommendation fits.
+4. **Do something together** — a small group and shared activity create the real-world interaction.
+5. **Keep the connection going** — when the connection is mutual, Pyrintu helps it continue.
+
+### Product demonstration
+
+**Heading:** `Tell Pyrintu what you want.`
+
+Example input:
+
+`I'm new to Hyderabad, I like badminton and startups, and I want to meet a small group this weekend. Somewhere relaxed, under ₹500.`
+
+The interface can translate this into a structured intent preview:
+
+- Hyderabad
+- Small group
+- Badminton
+- Startups
+- Relaxed environment
+- Budget ≤ ₹500
+- This weekend
+
+Example opportunity:
+
+- 4 people
+- Sunday · 6:30 PM
+- Badminton + café
+- Small group
+- ₹350 estimated
+
+Illustrative mutuality message:
+
+`Everyone independently wants to meet.`
+
+This is an example of the product behavior, not a claim about current availability.
+
+### Educational section
+
+**Heading:** `A match isn't the goal.`
+
+Supporting message:
+
+`Two people can look perfect on paper and never meet. Pyrintu looks beyond similarity and asks whether both people are actually willing to make something happen.`
+
+Conceptual relationship:
+
+`Compatibility + Mutual willingness = Real opportunity`
+
+### Trust section
+
+**Heading:** `Built for real-world connection.`
+
+Trust principles:
+
+- **Privacy first** — personal information is not automatically public.
+- **Small groups** — optimize for meaningful interaction rather than crowds.
+- **Safety controls** — users can report, block, and leave when needed.
+- **You're in control** — Pyrintu recommends; the user decides.
+
+Do not show fabricated testimonials, user counts, ratings, awards, partner logos, or unsupported trust claims.
+
+### First-time entry
+
+The marketing page should not expose the full product tutorial. Clicking `Get Started` enters product onboarding, where the progressive first-time guide begins with the Welcome panel and then moves through the contextual controls defined above.
+
+### Final conversion section
+
+**Heading:** `Your people aren't always obvious.`
+
+**Supporting text:** `Start with what you're looking for. Pyrintu will help with the rest.`
+
+**Primary CTA:** `Get Started →`
+
+### Footer
+
+The initial footer should provide routes/placeholders for:
+
+- Product
+- How It Works
+- Safety
+- About
+- Contact
+- Privacy
+- Terms
+- Community Guidelines
+- Instagram
+- LinkedIn
+- YouTube
+
+Unpublished destinations must not be represented as completed content.
+
+### Required states
+
+The landing page should remain usable if non-critical visual assets fail or load slowly. Text, navigation, and primary CTA must not depend on animation or remote visual assets.
+
+### Accessibility
+
+- semantic heading hierarchy
+- keyboard navigation
+- visible focus states
+- accessible controls
+- meaningful alt text for meaningful imagery
+- decorative imagery marked appropriately
+- sufficient contrast
+- reduced-motion support
+- no essential information conveyed by color alone
+- comfortable mobile touch targets
+- screen-reader-friendly navigation
+
+### Responsive behavior
+
+Mobile priority order:
+
+`Headline → Supporting message → Get Started → See How It Works → Hero visual → Core difference → How it works → Product example → Trust → Final CTA`
+
+Tablet and desktop may use two-column layouts where useful, but the information hierarchy remains the same.
+
+### SEO foundation
+
+Initial technical requirements:
+
+**Title:** `Pyrintu — Meet People. Build Something Real.`
+
+**Meta description:** `Pyrintu helps you build meaningful real-world relationships through compatible people, shared experiences, and mutual connection.`
+
+Also require one canonical URL, semantic HTML, crawlable text, Open Graph metadata, appropriate icons, and later sitemap/robots configuration.
+
+### Analytics events
+
+- `landing_view`
+- `nav_sign_in_clicked`
+- `hero_get_started_clicked`
+- `how_it_works_clicked`
+- `core_difference_viewed`
+- `intent_demo_interacted`
+- `trust_section_viewed`
+- `final_get_started_clicked`
+- `signup_started`
+
+Do not place raw private user content into generic analytics payloads.
+
+### Performance
+
+- mobile-first
+- minimal JavaScript on first paint
+- lazy-load non-critical visual assets
+- optimized images
+- avoid blocking third-party scripts
+- fast CTA interaction
+
+Premium design must not require a heavy page.
+
+### Security and privacy boundary
+
+The marketing page must not request unnecessary personal permissions. It must not request exact location, contacts access, or social graph scraping before authenticated product flows require them.
+
+### Acceptance criteria
+
+#### Messaging
+
+- Visitor can understand Pyrintu's purpose without external explanation.
+- The product is clearly differentiated from a generic matching app.
+- Mutuality is understandable without technical jargon.
+
+#### UX
+
+- Primary CTA is obvious.
+- Secondary information is easy to discover.
+- Marketing page flows naturally into onboarding.
+
+#### Trust
+
+- No unsupported claims.
+- No fake social proof.
+- Safety principles are visible.
+
+#### Accessibility
+
+- Keyboard accessible.
+- Screen-reader compatible.
+- Reduced-motion supported.
+
+#### Performance
+
+- No unnecessary heavy assets.
+- Mobile experience remains usable on slower connections.
+
+#### Analytics
+
+- Required conversion events are defined and testable.
+
+### Lock note
+
+Screen 1 was approved in product review and is now the first locked UX contract. Implementation is intentionally separate from this UX specification and must not begin until the UX branch is merged and the technical implementation task is created.
 
 ## Screen catalogue — to be specified next
 
