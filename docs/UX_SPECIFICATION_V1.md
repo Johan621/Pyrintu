@@ -1,6 +1,6 @@
 # PYRINTU — UX SPECIFICATION V1.0
 
-**Status:** Screen 1 approved; remaining screens in draft / next active workstream
+**Status:** Screen 1 and Screen 2 approved; Screen 3 approved / next active workstream
 
 ## Purpose
 
@@ -722,3 +722,579 @@ No phone numbers, emails, tokens, or OTP values may be stored in analytics event
 ### Privacy
 
 - No sensitive authentication information is stored in analytics
+
+# Screen 3 — Account Verification
+
+**Status:** Approved / ready to lock
+
+## Purpose
+
+Help Pyrintu establish enough trust in an account before the user enters higher-risk social interactions.
+
+Verification should be proportionate, understandable, privacy-conscious, and recoverable.
+
+The user should always know what Pyrintu is checking, why it is checking it, and what happens next.
+
+## Core Verification Model
+
+Pyrintu separates three concepts:
+
+`Authentication → Verification → Safety state`
+
+### Authentication
+
+Question: `Do you control this identity?`
+
+### Verification
+
+Question: `Can Pyrintu establish additional trust?`
+
+### Safety State
+
+Question: `Is this account currently allowed to participate?`
+
+These are separate concepts and must not be treated as interchangeable.
+
+A user signing in with Google or LinkedIn does not automatically receive a high-trust reputation.
+
+## Verification Levels
+
+### Level 0 — Account created
+
+The user has authenticated successfully.
+
+Status:
+
+`Account created`
+
+### Level 1 — Contact verified
+
+Depending on the authentication method:
+
+- Phone verified
+- Provider identity verified
+
+Status:
+
+`Basic verification complete`
+
+### Level 2 — Profile readiness
+
+The user completes the minimum information required for meaningful participation.
+
+Examples:
+
+- profile basics
+- required social information
+- profile completeness
+
+Status:
+
+`Profile ready`
+
+### Level 3 — Safety eligibility
+
+Pyrintu completes applicable automated safety checks.
+
+The system may consider:
+
+- suspicious authentication patterns
+- repeated failed verification
+- account abuse signals
+- duplicate-account indicators
+- unusual automated behavior
+
+The user should not be shown an unexplained secret score.
+
+Possible states:
+
+`Ready`
+
+`Additional verification required`
+
+`Under review`
+
+### Level 4 — Higher-trust verification
+
+Certain future actions may require stronger verification.
+
+Examples:
+
+- higher-risk meetups
+- unusual account behavior
+- repeated safety incidents
+- features requiring stronger identity assurance
+
+This is not automatically required for every user.
+
+Exact requirements belong in the Trust, Safety & Privacy specification.
+
+## Initial Verification Screen
+
+### Heading
+
+`Let's make Pyrintu safer for everyone.`
+
+### Supporting text
+
+`A few verification steps help us protect the community. We'll only ask for information when it's necessary.`
+
+### Primary CTA
+
+`Continue`
+
+### Secondary CTA
+
+`Why do you need this?`
+
+The secondary action opens a concise explanation.
+
+## Verification Checklist
+
+Show a clear progress component:
+
+```text
+Your account
+
+✓ Identity
+○ Contact
+○ Profile
+○ Safety check
+```
+
+The exact steps shown should depend on the user's current state. Do not show unnecessary verification requirements.
+
+## Phone Verification
+
+If the user chose phone authentication:
+
+`Phone number → OTP → Phone verified ✓`
+
+Message:
+
+`Phone number verified`
+
+No second OTP should be requested unnecessarily.
+
+If the user authenticated using Google or LinkedIn, phone verification can be introduced when the product requires it.
+
+## Provider Verification
+
+Message:
+
+`Identity provider connected`
+
+Purpose:
+
+- confirm control of the authentication account
+- reduce onboarding friction
+
+The interface must not imply that provider authentication means the user is trustworthy.
+
+## Profile Verification
+
+When minimum profile information is required:
+
+### Heading
+
+`Complete your basic profile`
+
+### Supporting message
+
+`A little context helps people know who they're connecting with and helps Pyrintu make better recommendations.`
+
+### CTA
+
+`Complete Profile`
+
+This should transition into the Profile screen rather than turning verification into a large form.
+
+## Safety Check
+
+Loading message:
+
+`Running a safety check…`
+
+Success:
+
+`Safety check complete`
+
+Additional step:
+
+`We need one more step.`
+
+Do not expose internal fraud-detection logic or opaque numerical trust scores.
+
+## Additional Verification Required
+
+### Heading
+
+`One more step`
+
+### Supporting text
+
+`We need a little more information before you can continue with this activity. This helps protect Pyrintu members and reduce abuse.`
+
+### Primary CTA
+
+`Continue verification`
+
+### Secondary CTA
+
+`Why?`
+
+The explanation should be specific enough to be understandable without revealing anti-abuse mechanisms.
+
+## Identity-Document Verification
+
+Identity-document verification is **not part of default onboarding for every user**.
+
+If stronger verification is required for a specific risk scenario, the flow must explain:
+
+- why the information is requested
+- what is collected
+- how it is used
+- how long it is retained
+- who can access it
+- what happens after verification
+
+Exact document types and retention policy belong in the later Trust, Safety & Privacy specification.
+
+## Verification Result States
+
+### Verified
+
+`✓ You're verified`
+
+`You're ready to continue.`
+
+CTA: `Continue`
+
+### Pending
+
+`◷ Verification in progress`
+
+`Your verification is still being reviewed. We'll let you know when there's an update.`
+
+CTA: `Continue where available`
+
+### More Information Required
+
+`! One more step`
+
+`We couldn't complete verification with the information available.`
+
+Actions:
+
+- Try again
+- Get help
+
+### Failed
+
+Use neutral language:
+
+`We couldn't verify your account yet.`
+
+Actions:
+
+- Try again
+- Use another verification method
+- Contact support
+
+## Rate Limiting and Abuse Protection
+
+Verification attempts must not be unlimited.
+
+Possible system behavior:
+
+`normal → retry → temporary cooldown → additional review`
+
+User-facing message:
+
+`Please wait before trying again.`
+
+Exact limits belong in the security specification.
+
+## Suspicious Activity State
+
+### User-facing message
+
+`We need to review your account before you continue.`
+
+Supporting text:
+
+`This additional review helps us protect the Pyrintu community.`
+
+Actions:
+
+- View status
+- Get help
+
+Do not expose internal detection rules.
+
+## Manual Review
+
+Flow:
+
+`Submitted → Under review → Decision`
+
+User message:
+
+`Verification under review`
+
+`Your account is being reviewed. You don't need to keep this screen open.`
+
+## Appeal / Dispute
+
+### Heading
+
+`Think we got this wrong?`
+
+### Supporting text
+
+`You can request a review of the decision.`
+
+### CTA
+
+`Request review`
+
+The appeal flow must not reveal internal detection rules.
+
+## Privacy Explanation
+
+### Why verification?
+
+`Verification helps reduce fake accounts, abuse, and unsafe interactions.`
+
+### Your privacy
+
+`Pyrintu should collect only the information needed for the verification purpose.`
+
+### Your control
+
+`You should be able to understand what information is being requested before providing it.`
+
+This becomes part of the trust contract.
+
+## Safety Controls
+
+Verification must never block access to essential safety controls.
+
+Where applicable, users can access:
+
+- Report
+- Block
+- Leave
+- Help
+
+Verification UI must not obscure these controls.
+
+## AI Behavior
+
+AI does **not** decide verification eligibility.
+
+Authentication and verification decisions should rely on deterministic and security-controlled systems.
+
+AI may eventually assist humans with:
+
+- review prioritization
+- explanation generation
+- support responses
+
+AI must not be the blind final authority for identity or safety decisions.
+
+## Deterministic Behavior
+
+The system owns:
+
+- authentication state
+- verification state
+- attempt limits
+- cooldowns
+- required verification level
+- review state
+- eligibility state
+
+The UI reflects these states. The UI does not invent them.
+
+## Analytics Events
+
+- verification_screen_viewed
+- verification_started
+- phone_verification_started
+- phone_verification_completed
+- provider_verification_completed
+- profile_verification_started
+- safety_check_started
+- safety_check_completed
+- additional_verification_requested
+- verification_retry
+- verification_pending
+- verification_completed
+- verification_failed
+- manual_review_started
+- appeal_started
+- support_opened
+- verification_abandoned
+
+Never send these through generic analytics:
+
+- OTP values
+- identity-document contents
+- raw personal identifiers
+- sensitive verification evidence
+
+## Accessibility Requirements
+
+- Keyboard navigable
+- Screen-reader compatible
+- Progress states announced clearly
+- Status changes accessible
+- Errors associated with relevant controls
+- Visible focus states
+- Sufficient contrast
+- No color-only status indication
+- Reduced-motion support
+- Touch-friendly controls
+
+For asynchronous verification, screen readers should receive an accessible status update when verification changes state.
+
+## First-Time User Guide
+
+### Guide 03 — Verification
+
+**Target:** Verification status / progress component
+
+**Message:** `Verification helps keep Pyrintu trustworthy. We'll only ask for additional information when it's necessary.`
+
+**Primary action:** `Continue`
+
+**Secondary action:** `Why?`
+
+The guide must not automatically highlight sensitive information fields before the user understands why they are being requested.
+
+## Responsive Behavior
+
+### Mobile
+
+Priority order:
+
+`Heading → Explanation → Verification progress → Current verification action → Privacy explanation → Safety / Help`
+
+### Desktop
+
+A two-column layout may be used:
+
+- Left: explanation + progress
+- Right: current verification action
+
+The information hierarchy remains identical.
+
+## Loading States
+
+Examples:
+
+`Checking your account…`
+
+`Sending verification code…`
+
+`Checking verification…`
+
+`Reviewing your account…`
+
+No infinite spinner. Every operation must have a recoverable failure state.
+
+## Offline / Network Failure
+
+Message:
+
+`We couldn't complete the verification right now.`
+
+Actions:
+
+- Try again
+- Continue later
+
+Interrupted verification must not corrupt the account state.
+
+## Security Principles
+
+At implementation time, verification must include protections such as:
+
+- rate limiting
+- replay protection
+- secure token handling
+- server-side validation
+- audit logging
+- abuse detection
+- secure provider callbacks
+- protection against account enumeration
+
+Exact implementation belongs in the later security architecture.
+
+## Acceptance Criteria
+
+### Understandability
+
+- User knows why verification exists.
+- User knows what is currently being verified.
+- User knows what happens next.
+
+### Trust
+
+- Verification does not automatically imply a social reputation score.
+- Stronger verification is progressive rather than unnecessarily mandatory.
+
+### Privacy
+
+- No unnecessary sensitive information requested.
+- Privacy explanation exists before sensitive collection.
+- Analytics contains no verification secrets.
+
+### Safety
+
+- Report/block/leave/help remain accessible.
+- Suspicious activity has a review pathway.
+
+### Recovery
+
+- Retry exists.
+- Cooldown exists where required.
+- Manual review exists where applicable.
+- Appeal/support path exists where applicable.
+
+### Accessibility
+
+- Keyboard accessible.
+- Screen-reader compatible.
+- Status transitions accessible.
+
+### Engineering Boundary
+
+- AI is not the final authority for identity/safety verification.
+
+## Final User Experience
+
+Ideal journey:
+
+```text
+Welcome
+   ↓
+"We'll keep this simple."
+   ↓
+Identity ✓
+   ↓
+Phone ✓
+   ↓
+Profile →
+   ↓
+Safety check ✓
+   ↓
+"You're ready."
+   ↓
+Continue to Pyrintu
+```
+
+## Lock Note
+
+Screen 3 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-3`; implementation remains separate from the UX specification.
