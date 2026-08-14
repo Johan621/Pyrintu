@@ -1695,3 +1695,613 @@ The experience must not feel like a long mandatory onboarding process.
 ## Lock Note
 
 Screen 4 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-4`; implementation remains separate from the UX specification.
+
+# Screen 5 — Profile Creation
+
+**Status:** Approved / ready to lock
+
+## Purpose
+
+Create a user-controlled profile that gives Pyrintu meaningful context for recommendations while allowing the user to decide what is visible to other people.
+
+The profile serves three purposes:
+
+`Understand me → Represent me → Help Pyrintu find better opportunities`
+
+The experience must not feel like a CV, dating profile, personality test, or generic registration form.
+
+## Core Philosophy
+
+Pyrintu should understand behavior and preferences rather than reduce users to labels.
+
+The profile should capture:
+
+- who the user is
+- what they genuinely enjoy
+- how they naturally connect with people
+- what kinds of interactions feel comfortable
+- what kinds of connections they are open to
+- what they want others to know
+
+## Screen Opening
+
+### Heading
+
+`Let's make your Pyrintu profile feel like you.`
+
+### Supporting text
+
+`A good profile isn't a perfect profile. Give people enough of the real you to start something meaningful.`
+
+### Primary CTA
+
+`Create my profile`
+
+### Secondary action
+
+`I'll do this later`
+
+The user should immediately see the profile taking shape rather than facing a dense form.
+
+## Live Profile Preview
+
+The strongest visual element should be a live profile card.
+
+Example structure:
+
+```text
+┌─────────────────────┐
+│       PHOTO         │
+│                     │
+│   Display name      │
+│   General location  │
+│                     │
+│   Short description │
+│                     │
+│   Interest chips    │
+│                     │
+│  What I'm looking   │
+│  for...             │
+└─────────────────────┘
+```
+
+The preview updates as the user adds information.
+
+## Step 01 — Identity Basics
+
+### Required / defaulted where available
+
+**Display name**
+
+The value may default from authentication where available, but remains editable.
+
+### Product-required profile context
+
+**Age / age-range representation**
+
+**City / general location**
+
+Exact residential location must not be exposed.
+
+Example:
+
+`Hyderabad`
+
+not an exact home, hostel, or residential address.
+
+## Profile Photo
+
+Primary action:
+
+`Add photo`
+
+Secondary:
+
+`Choose later`
+
+Supporting message:
+
+`A real photo helps people feel comfortable knowing who they're connecting with.`
+
+The product must not imply a required appearance standard.
+
+### Upload options
+
+- Take a photo
+- Choose from device
+
+### Photo guidance
+
+Preferred user-facing guidance:
+
+`Choose a clear photo where people can easily recognize you.`
+
+For a poor image:
+
+`This photo may make it harder for people to recognize you. Try another one?`
+
+Technical validation details remain implementation concerns and should not dominate the UX.
+
+## Step 02 — A Little About You
+
+### Prompt
+
+`What are you like when you're around people you enjoy?`
+
+Examples:
+
+- `Quiet at first, then I won't stop talking about startups.`
+- `Always up for badminton or discovering a new café.`
+- `I like small groups more than huge crowds.`
+
+Input placeholder:
+
+`Write something in your own words...`
+
+The input should support a meaningful answer without encouraging an essay.
+
+## AI Assistance
+
+After the user provides natural-language text, Pyrintu may offer structured suggestions.
+
+Example input:
+
+`I like badminton, startups, coffee, sometimes I'm shy but after knowing people I talk a lot.`
+
+Possible structured preview:
+
+- 🏸 Badminton
+- 🚀 Startups
+- ☕ Coffee
+- 🌱 Takes time to open up
+- 💬 Enjoys deeper conversations
+
+Actions:
+
+- `Use suggestions`
+- `Edit`
+- `Keep my wording`
+
+The interface must clearly indicate:
+
+`AI suggestion — you decide what stays.`
+
+AI must never silently rewrite or publish profile content.
+
+## Step 03 — Interests
+
+### Heading
+
+`What do you genuinely enjoy?`
+
+Use a concise set of suggested interests rather than requiring the user to browse a very large taxonomy.
+
+Example suggestions:
+
+- 🏸 Badminton
+- 💻 Building things
+- 🚀 Startups
+- 🎵 Music
+- 🎬 Movies
+- ☕ Cafés
+- 📚 Reading
+- ✈️ Travel
+- 🎮 Gaming
+- 🏃 Fitness
+
+Action:
+
+`Add your own`
+
+Users can select multiple interests.
+
+## Interest Intent
+
+When useful, distinguish passive interest from willingness to use it as a social activity.
+
+Example:
+
+`Badminton`
+
+Options:
+
+- `I'd happily join`
+- `Maybe`
+- `Just something I enjoy personally`
+
+This signal can later support opportunity formation without assuming every interest is a meetup preference.
+
+## Step 04 — Social Style
+
+### Heading
+
+`How do you naturally connect with people?`
+
+Use behavior-based language rather than personality labels.
+
+Examples:
+
+- Small groups
+- One-on-one conversations
+- Activity first, conversation later
+- Deep conversations
+- Casual conversations
+- I like meeting new people
+- I need some time to warm up
+
+Multiple selections are allowed.
+
+Avoid making `Introvert / Extrovert` the primary interaction model.
+
+## Step 05 — Comfortable Group Size
+
+### Question
+
+`What's your ideal group?`
+
+Options:
+
+- Just me + one person
+- 3–4 people
+- 5–6 people
+- Small group, flexible
+
+This preference can feed later opportunity formation.
+
+## Step 06 — What Are You Open To?
+
+### Heading
+
+`What kind of connection are you open to?`
+
+Examples:
+
+- New friends
+- Activity partners
+- Professional connections
+- People with shared interests
+- Small communities
+- Exploring a new city
+
+Multiple selections are allowed.
+
+Pyrintu must not assume that every user wants the same type of relationship.
+
+## Visibility and Privacy Controls
+
+Every meaningful profile field must have a clear visibility policy.
+
+Possible states:
+
+- Visible to people you connect with
+- Visible only to Pyrintu
+- Hidden
+
+Users should understand visibility before sharing information.
+
+Exact location is never shown through the profile.
+
+## Why Are You Asking This?
+
+For unfamiliar fields, provide a concise explanation.
+
+Example:
+
+### Why are you asking about group size?
+
+`It helps Pyrintu create opportunities that feel comfortable instead of putting you into groups that don't fit your social style.`
+
+Users should understand what Pyrintu is doing and why.
+
+## AI-Generated Profile Understanding
+
+At the end of profile creation:
+
+### Heading
+
+`Here's how Pyrintu currently understands you.`
+
+Example:
+
+> Hyderabad-based builder who enjoys badminton, startups and relaxed cafés. You prefer smaller groups, take a little time to warm up, and enjoy activity-based connections.
+
+Then ask:
+
+`Is this a good representation of you?`
+
+Actions:
+
+- `Looks right`
+- `Change something`
+
+The AI is reflecting user-provided signals rather than deciding who the user is.
+
+## Explainability
+
+Provide:
+
+`Why did Pyrintu say that?`
+
+Example explanation:
+
+`Small groups came from your preference for 3–4 people.`
+
+`Activity-based connections came from your selected interests and social-style preferences.`
+
+The product should make AI-derived summaries understandable and correctable.
+
+## Profile Readiness
+
+Avoid meaningless percentage completion such as `87% Complete`.
+
+Instead show meaningful readiness:
+
+### `Your profile is ready for better recommendations.`
+
+Possible checklist:
+
+```text
+✓ Identity
+✓ Photo
+✓ About you
+✓ Interests
+✓ Social style
+○ Availability
+```
+
+Availability belongs to Screen 7 and must not be required to complete Screen 5.
+
+## Save Behavior
+
+Profile information should autosave where safe.
+
+Message when appropriate:
+
+`Your progress is saved.`
+
+If the user returns later:
+
+`Continue building your profile`
+
+## Exit Behavior
+
+If the user exits while editing:
+
+`Your changes are saved automatically.`
+
+Actions:
+
+- Keep editing
+- Leave
+
+Do not use fear-based loss warnings.
+
+## Empty State
+
+For a new profile:
+
+`Add your first details`
+
+`Your profile preview will appear here.`
+
+No awkward blank-state layout.
+
+## Validation
+
+Validation should be human and actionable.
+
+Prefer:
+
+`Add a little more so people can get a sense of you.`
+
+over technical validation language.
+
+For interests:
+
+`Choose at least one thing you'd genuinely enjoy doing with others.`
+
+## Error States
+
+### Photo upload failure
+
+`We couldn't upload that photo.`
+
+Actions:
+
+- Try again
+- Choose another photo
+
+### Save failure
+
+`We couldn't save that change. Your earlier information is safe.`
+
+Actions:
+
+- Retry
+- Continue
+
+### AI unavailable
+
+`Pyrintu couldn't generate the profile summary right now.`
+
+Actions:
+
+- Try again
+- Continue without summary
+
+The user must never be blocked because an AI service failed.
+
+## AI Failure Boundary
+
+The product must work without AI.
+
+Architecture principle:
+
+`Deterministic profile collection → Optional AI enhancement → Profile ready`
+
+AI failure must never prevent basic profile completion.
+
+## Privacy and Safety
+
+Do not request contacts here.
+
+Do not silently import the user's entire social graph.
+
+Do not publish the profile outside the intended Pyrintu experience without the required user action and visibility rules.
+
+Users must be able to access applicable privacy, visibility, and safety controls from the profile experience.
+
+## Safety-Sensitive Content
+
+The profile system must enforce the eventual content-safety policy for clearly prohibited content.
+
+User-facing recovery language should remain neutral:
+
+`This section contains content that can't be used on Pyrintu. Try describing yourself another way.`
+
+Provide a recovery path rather than a dead end.
+
+## First-Time User Guide
+
+### Guide 02 — Profile
+
+**Target:** `Create Profile`
+
+**Message:** `Tell Pyrintu a little about yourself so we can make better recommendations.`
+
+**Primary action:** `Create Profile`
+
+Contextual guidance may appear beside unfamiliar controls but must never cover the primary form or important safety controls.
+
+## Accessibility Requirements
+
+- keyboard navigation
+- screen-reader labels
+- logical focus sequence
+- accessible chips and toggles
+- accessible photo upload
+- visible focus indicators
+- sufficient contrast
+- error announcements
+- reduced-motion support
+- touch-friendly controls
+- no information conveyed only through color
+
+AI-generated changes must be announced clearly, for example:
+
+`Pyrintu suggested changes to your profile.`
+
+## Responsive Behavior
+
+### Mobile
+
+Priority order:
+
+`Profile preview → Identity → Photo → About → Interests → Social style → Group size → Connection preferences → AI understanding → Save & continue`
+
+### Desktop
+
+Use a two-column composition where practical:
+
+- Left: profile editing
+- Right: live profile preview + Pyrintu understanding
+
+The information hierarchy remains equivalent on smaller screens.
+
+## Analytics Events
+
+- profile_viewed
+- profile_started
+- profile_photo_added
+- profile_about_started
+- interest_added
+- interest_removed
+- social_style_selected
+- group_size_selected
+- connection_preference_selected
+- ai_profile_summary_requested
+- ai_profile_summary_accepted
+- ai_profile_summary_edited
+- ai_profile_summary_rejected
+- profile_saved
+- profile_completed
+- profile_abandoned
+- profile_validation_error
+- profile_save_failed
+
+Never send raw profile text or private personal information into generic analytics.
+
+## Performance
+
+- optimized image uploads
+- image compression before upload where appropriate
+- autosave without blocking interaction
+- asynchronous AI generation
+- no full-page reloads
+- graceful degradation when AI is unavailable
+
+## Acceptance Criteria
+
+### User understanding
+
+- User knows why each meaningful field exists.
+- User understands what is visible to other people.
+- User can see how Pyrintu understands their profile.
+
+### Profile
+
+- Live preview updates.
+- Profile can be saved incrementally.
+- User can edit AI suggestions.
+- AI never silently changes profile content.
+
+### Privacy
+
+- Visibility is understandable.
+- Exact location is not required.
+- Contacts and social graph access are not requested.
+
+### Reliability
+
+- AI failure does not block profile completion.
+- Upload failure is recoverable.
+- Save failure preserves previous information.
+
+### Accessibility
+
+- Keyboard accessible.
+- Screen-reader compatible.
+- Mobile-friendly.
+
+### Product quality
+
+- Profile feels human rather than form-like.
+- Profile captures behavioral and social-preference signals useful for later matching.
+
+## Pyrintu Understanding Moment
+
+The intended emotional moment is:
+
+### `Here's what we understand about you.`
+
+The user sees a concise summary based on their own inputs and can confirm or change it.
+
+The experience should make the user feel understood without implying that Pyrintu knows more about them than they have provided.
+
+## Final Intended Experience
+
+```text
+"I'm new here."
+        ↓
+"I understand what Pyrintu is."
+        ↓
+"I can make this profile feel like me."
+        ↓
+"Pyrintu shows me what it understood."
+        ↓
+"Yes — that's me."
+```
+
+## Lock Note
+
+Screen 5 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-5`; implementation remains separate from the UX specification.
