@@ -1298,3 +1298,400 @@ Continue to Pyrintu
 ## Lock Note
 
 Screen 3 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-3`; implementation remains separate from the UX specification.
+
+# Screen 4 — Welcome / Guided Introduction
+
+**Status:** Approved / ready to lock
+
+## Purpose
+
+Give a newly authenticated user a clear mental model of Pyrintu before asking them to create a profile or preferences.
+
+The user should leave this screen understanding:
+
+`What Pyrintu does → how the journey works → what happens next`
+
+This is a guided welcome, not a long tutorial.
+
+## Core Message
+
+### Heading
+
+`Welcome to Pyrintu`
+
+### Supporting Message
+
+`Pyrintu helps you move from a promising connection to a real relationship. We'll guide you through your first step.`
+
+### Primary Action
+
+`Let's begin`
+
+### Secondary Action
+
+`Skip introduction`
+
+## Experience Structure
+
+The screen has three conceptual layers:
+
+`Welcome → What Pyrintu does → What happens next`
+
+The user is not asked for profile information on this screen.
+
+## Visual Composition
+
+### Desktop
+
+Use a centered, spacious composition containing:
+
+- Pyrintu identity
+- welcome heading
+- supporting message
+- simple visual journey
+- primary CTA
+- secondary skip action
+
+### Mobile
+
+Prioritize:
+
+- Pyrintu identity
+- welcome heading
+- supporting message
+- visual journey
+- Let's begin
+- Skip introduction
+
+The screen should feel spacious rather than dense.
+
+## Visual Story
+
+The visual should communicate:
+
+`You → Understand what you want → Compatible people → Shared experience → Real relationship`
+
+Use the same conceptual language established by the Landing Page.
+
+Do not introduce a conflicting visual metaphor.
+
+## Three-Step Explanation
+
+### 01 — Tell Pyrintu about you
+
+`Share the things that help Pyrintu understand your social preferences.`
+
+### 02 — Tell Pyrintu what you want
+
+`Describe the kind of connection or experience you're looking for.`
+
+### 03 — Let Pyrintu help with the rest
+
+`Discover compatible opportunities, shared activities, and connections that have the potential to grow.`
+
+These explanations remain high-level. The purpose is to explain the journey, not every feature.
+
+## Progress Indicator
+
+Show that onboarding is a sequence without making it feel like a form.
+
+Recommended presentation:
+
+```text
+● ○ ○ ○
+Your first step
+```
+
+Avoid large numerical counters such as `1/17`.
+
+The onboarding should feel guided rather than pressured.
+
+## Primary CTA Behavior
+
+When the user selects:
+
+`Let's begin`
+
+The system:
+
+`Persist guide_started → Open Profile Creation`
+
+The next destination is:
+
+`Screen 5 — Profile Creation`
+
+The transition should feel immediate and intentional.
+
+## Skip Behavior
+
+The `Skip introduction` action is always visible.
+
+When selected, present:
+
+### Message
+
+`You can explore Pyrintu without the introduction. You can revisit guidance later from Help.`
+
+### Actions
+
+- Skip
+- Continue introduction
+
+Do not use guilt-based or pressure-based copy.
+
+## Skip State
+
+When the user skips:
+
+`guided_intro_status = skipped`
+
+The user continues to:
+
+`Profile Creation`
+
+Contextual guidance remains available later.
+
+The introduction should not repeatedly reopen unless the user explicitly requests it.
+
+## Resume Behavior
+
+If onboarding is interrupted:
+
+### Message
+
+`Welcome back. Let's continue where you left off.`
+
+The user resumes from the last completed onboarding state rather than restarting.
+
+## First-Time Behavior
+
+The full Welcome experience appears once per user by default.
+
+It may be shown again only when:
+
+- the user explicitly requests onboarding help
+- Pyrintu substantially changes onboarding and intentionally reintroduces guidance
+
+Normal product use must never be interrupted by a forced tutorial.
+
+## Contextual Guidance After Skip
+
+Skipping the introduction does not disable later help.
+
+Example contextual guidance:
+
+### Title
+
+`Create your profile`
+
+### Message
+
+`This helps Pyrintu understand what kinds of connections may fit you.`
+
+The hint may be dismissed and must not block progress.
+
+## AI Behavior
+
+AI does not dynamically generate the Welcome experience.
+
+The welcome copy and structure are deterministic product behavior.
+
+AI becomes useful later when users begin expressing their own intent.
+
+## Personalization Boundary
+
+Do not use inferred sensitive traits on the Welcome screen.
+
+Acceptable:
+
+`Welcome`
+
+Potentially unnecessary:
+
+Showing inferred personality characteristics before the user provides them.
+
+Not acceptable:
+
+`We know you're an introvert.`
+
+The user controls how Pyrintu understands them.
+
+## Privacy
+
+No additional permissions are requested on this screen.
+
+Do not request:
+
+- contacts
+- exact location
+- camera
+- microphone
+- calendar
+- social graph access
+
+The purpose of this screen is to explain Pyrintu before collecting additional information.
+
+## Safety
+
+Provide lightweight access to:
+
+- Safety
+- Help
+
+Safety content should remain secondary to the welcome experience.
+
+Critical safety controls must never be obscured by onboarding.
+
+## Loading State
+
+Normally this screen requires minimal loading.
+
+If onboarding state must be retrieved:
+
+`Preparing your Pyrintu experience…`
+
+The screen should remain usable whenever possible while state loads.
+
+## Error State
+
+### Message
+
+`We couldn't load your onboarding progress.`
+
+### Actions
+
+- Try again
+- Continue
+
+Failure to retrieve onboarding state must not permanently block product access.
+
+## Recovery State
+
+### State unavailable
+
+Continue with the current onboarding step where safe.
+
+### Previous session interrupted
+
+Resume from the last known state.
+
+### Invalid onboarding state
+
+Reset only the affected onboarding state while preserving the account.
+
+### User message
+
+`Let's restart this step. Your account is safe.`
+
+## Accessibility Requirements
+
+- semantic heading hierarchy
+- keyboard navigation
+- visible focus states
+- screen-reader-compatible controls
+- accessible progress indicator
+- sufficient contrast
+- no meaning conveyed only through animation
+- reduced-motion support
+- mobile-friendly touch targets
+- skip action reachable without excessive navigation
+
+The journey explanation must remain understandable without the visual illustration.
+
+## Responsive Behavior
+
+### Mobile
+
+Priority order:
+
+`Heading → Supporting message → Visual story → Three-step explanation → Let's begin → Skip introduction`
+
+### Desktop
+
+The visual story may sit beside the explanation while preserving the same CTA hierarchy.
+
+## Analytics Events
+
+Track:
+
+- welcome_viewed
+- welcome_started
+- welcome_skip_clicked
+- welcome_skip_confirmed
+- welcome_continue_clicked
+- welcome_completed
+- onboarding_resumed
+- contextual_help_opened
+
+Do not collect private profile information in these analytics events.
+
+## Performance
+
+This should be one of the lightest authenticated screens.
+
+Requirements:
+
+- minimal JavaScript
+- optimized illustration
+- no video required
+- no blocking third-party content
+- fast transition to Profile Creation
+- animation optional
+
+## Acceptance Criteria
+
+### Mental Model
+
+- User understands what Pyrintu does.
+- User understands the high-level journey.
+- User knows what happens after `Let's begin`.
+
+### Onboarding
+
+- `Let's begin` leads to Profile Creation.
+- `Skip introduction` is always available.
+- Skip does not create guilt or friction.
+- Progress is persisted.
+- Interrupted onboarding can resume.
+
+### Guidance
+
+- Welcome appears once by default.
+- Contextual guidance remains available later.
+- The tutorial never becomes a mandatory maze.
+
+### Privacy
+
+- No unnecessary permissions requested.
+- No inferred sensitive traits displayed.
+
+### Accessibility
+
+- Keyboard accessible.
+- Screen-reader compatible.
+- Reduced-motion compatible.
+
+### Reliability
+
+- Failure to load onboarding state does not permanently block access.
+- Recovery is available.
+
+## Final Intended Experience
+
+```text
+"I'm new here."
+        ↓
+"Oh, I understand what Pyrintu is."
+        ↓
+"That actually sounds different."
+        ↓
+"I know what happens next."
+        ↓
+"Okay, let's begin."
+```
+
+The experience must not feel like a long mandatory onboarding process.
+
+## Lock Note
+
+Screen 4 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-4`; implementation remains separate from the UX specification.
