@@ -2936,3 +2936,718 @@ Later Match Reasoning may explain relevant signals in human terms.
 ## Lock Note
 
 Screen 6 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-6`; implementation remains separate from the UX specification.
+
+# Screen 7 — Availability
+
+**Status:** Approved / ready to lock
+
+## Core Objective
+
+Convert a user's real-world availability into useful, flexible signals for opportunity formation.
+
+The product should answer:
+
+`When are you realistically open to a good Pyrintu opportunity?`
+
+Availability is about opportunity readiness, not surveillance.
+
+## Opening Experience
+
+### Heading
+
+`When are you open to something good?`
+
+### Supporting text
+
+`Tell Pyrintu roughly when you're available. You don't need to plan every minute.`
+
+### Reassurance
+
+`You can change this anytime.`
+
+## Availability Entry Modes
+
+Do not begin with a large Monday–Sunday calendar.
+
+Ask:
+
+### `How would you like to tell us your availability?`
+
+Options:
+
+- `Set my usual times`
+- `Tell us in my own words`
+- `I'll decide later`
+
+This keeps setup lightweight.
+
+## Mode A — Usual Times
+
+Users define recurring availability in simple blocks.
+
+Example:
+
+```text
+Weekdays
+After 6 PM
+
+Weekends
+Mostly open
+```
+
+Exact time windows remain optional unless the user wants more precision.
+
+## Quick Availability Presets
+
+Offer useful presets:
+
+### Weekdays
+
+- Morning
+- Afternoon
+- Evening
+- Flexible
+
+### Weekends
+
+- Morning
+- Afternoon
+- Evening
+- Flexible
+
+### Custom
+
+`Choose specific times`
+
+Presets should support fast setup without forcing calendar-level detail.
+
+## Exact Time Windows
+
+When the user wants precision:
+
+```text
+Monday
+6:00 PM — 9:00 PM
+
+Wednesday
+6:30 PM — 10:00 PM
+
+Saturday
+10:00 AM — 4:00 PM
+```
+
+Use friendly time-range controls rather than a dense calendar grid.
+
+## Recurring Availability
+
+Support readable recurring rules such as:
+
+`Every weekday after 6 PM`
+
+`Saturday afternoons`
+
+The user should be able to understand the rule in natural language.
+
+## Natural-Language Mode
+
+Provide:
+
+### `Rather tell Pyrintu?`
+
+Example:
+
+`I'm usually free after 6 on weekdays and most of Saturday, but this weekend I'm busy.`
+
+Action:
+
+`Structure my availability`
+
+Possible structured preview:
+
+```text
+Weekdays
+After 6 PM
+
+Saturday
+Flexible
+
+Exception
+This weekend unavailable
+```
+
+Then:
+
+`Here's what I understood.`
+
+Actions:
+
+- `Looks right`
+- `Edit`
+- `Keep writing`
+
+AI must never silently create or remove availability.
+
+## Availability Certainty
+
+Allow the user to distinguish:
+
+### Reliable
+
+`Usually available`
+
+### Flexible
+
+`Often available`
+
+### Uncertain
+
+`Maybe available`
+
+This helps Pyrintu understand that an opening can have different levels of confidence.
+
+## Flexibility
+
+### Heading
+
+`How flexible are you?`
+
+Use a spectrum:
+
+`Need advance notice — Very flexible`
+
+Accessible alternatives:
+
+- Need advance notice
+- Some flexibility
+- Flexible
+- Very flexible
+
+## Notice Preference
+
+### Question
+
+`How much notice do you usually prefer?`
+
+Options:
+
+- Same day is okay
+- A day or two
+- A few days
+- A week or more
+- Depends on the activity
+
+This can affect opportunity timing later.
+
+## Duration Preference
+
+### Heading
+
+`How much time do you usually enjoy spending?`
+
+Options:
+
+- Under 1 hour
+- 1–2 hours
+- 2–3 hours
+- Half day
+- Depends on the activity
+
+This represents preference, not a commitment.
+
+## Repeating vs Occasional Availability
+
+### Question
+
+`Are these times usually available or just occasional?`
+
+Options:
+
+- Usually available
+- Sometimes available
+- Only for specific plans
+
+The system must not treat a temporary opening as a permanent schedule.
+
+## Exceptions
+
+Provide a lightweight way to override recurring availability.
+
+Example:
+
+```text
+Usual:
+Saturday afternoon
+
+Exception:
+This Saturday
+Unavailable
+```
+
+Another example:
+
+```text
+Usual:
+Weekdays after 6 PM
+
+Exception:
+Tomorrow
+Available only after 8 PM
+```
+
+Specific exceptions take precedence over recurring rules.
+
+## This Week Quick Adjustment
+
+Provide:
+
+### `Anything different this week?`
+
+Options:
+
+- Nothing different
+- Add a busy time
+- Add extra availability
+
+This avoids making users edit their entire recurring schedule for a temporary change.
+
+## Calendar Integration Boundary
+
+Google Calendar, Outlook, or other calendar integrations are **not required during V1 onboarding**.
+
+The initial product must work without calendar access.
+
+A later integration may offer an explicit:
+
+`Connect your calendar`
+
+with a clear permission and privacy explanation.
+
+Calendar integration belongs to a later product/integration specification.
+
+## Location Relationship
+
+Availability does not require exact location tracking.
+
+The product may later combine availability with the user's selected general location or meetup preferences, but Screen 7 must not require continuous location access.
+
+## Privacy
+
+Availability is potentially sensitive.
+
+The default model is:
+
+`Pyrintu uses availability to form opportunities.`
+
+Other users should not automatically see a recurring private schedule such as:
+
+`Free every Tuesday from 6–9 PM.`
+
+When an opportunity is actually relevant, the system may expose only the information required for that opportunity, such as:
+
+`Available Saturday at 6:30 PM.`
+
+Broader visibility requires appropriate user control.
+
+## Privacy Explanation
+
+### `Why do you need this?`
+
+`Availability helps Pyrintu suggest opportunities that can realistically happen—not just matches that look good on paper.`
+
+## AI Behavior
+
+AI may:
+
+- parse natural-language availability
+- identify recurring patterns
+- detect ambiguity
+- summarize availability
+- suggest clarification
+
+AI must not invent precise times.
+
+Example:
+
+User:
+
+`I'm generally free after work.`
+
+Pyrintu should ask:
+
+`When you say “after work,” should I treat that as around 6 PM on weekdays?`
+
+Actions:
+
+- `Yes`
+- `Change`
+- `I'll set it myself`
+
+## Ambiguity Handling
+
+Example:
+
+`Usually free Saturday.`
+
+Ask:
+
+`Roughly when on Saturday?`
+
+Options:
+
+- Morning
+- Afternoon
+- Evening
+- Most of the day
+- Custom
+
+The system should resolve important ambiguity before using the signal for opportunity formation.
+
+## Conflict Detection
+
+If the user creates:
+
+```text
+Saturday
+2 PM–6 PM available
+```
+
+and later:
+
+```text
+Saturday
+4 PM–5 PM unavailable
+```
+
+Pyrintu should show:
+
+`We found an overlap.`
+
+Then explain:
+
+`Your availability will be treated as 2–4 PM and 5–6 PM.`
+
+Actions:
+
+- `Accept`
+- `Edit`
+
+No silent conflict resolution.
+
+## Overlapping Rules
+
+Example:
+
+```text
+Weekdays:
+After 6 PM
+
+Tuesday:
+Unavailable
+```
+
+Result:
+
+`Tuesday: Unavailable`
+
+Specific exceptions override recurring rules, and the UI should explain this precedence.
+
+## Availability Summary
+
+At completion:
+
+### `Here's when you're usually open`
+
+Example:
+
+```text
+Weekdays
+Usually after 6 PM
+
+Saturday
+Mostly flexible
+
+Sunday
+Afternoons
+
+Notice preference
+A day or two
+
+Flexibility
+Moderate
+```
+
+Then:
+
+`Does this look right?`
+
+Actions:
+
+- `Looks right`
+- `Change something`
+
+## Opportunity Readiness
+
+After confirmation:
+
+### Heading
+
+`You're ready for better-timed opportunities.`
+
+### Supporting text
+
+`Pyrintu can now look for possibilities that fit both your preferences and your real availability.`
+
+### Primary CTA
+
+`Continue`
+
+Destination:
+
+`Screen 8 — Intent Creation`
+
+## Save Behavior
+
+Availability edits should autosave.
+
+Possible states:
+
+`Saving…`
+
+`Saved ✓`
+
+`Syncing…`
+
+`Couldn't save`
+
+A failed update must not overwrite the last valid saved schedule.
+
+## Empty State
+
+When no availability is provided:
+
+### Heading
+
+`Tell us when you're generally free.`
+
+Options:
+
+- `Set usual times`
+- `Tell us in my own words`
+- `Skip for now`
+
+Skipping remains possible when product rules permit.
+
+## Skip Behavior
+
+If the user skips:
+
+`availability_status = incomplete`
+
+Pyrintu can later ask for availability when the user wants to participate in an opportunity.
+
+User-facing message:
+
+`No problem. We can ask when it becomes useful.`
+
+This preserves lightweight onboarding.
+
+## Loading State
+
+Examples:
+
+`Saving your availability…`
+
+`Understanding your schedule…`
+
+`Checking your availability rules…`
+
+No infinite loading state.
+
+## Error State
+
+### Save failure
+
+`We couldn't save that change. Your earlier availability is still safe.`
+
+Actions:
+
+- Retry
+- Continue
+
+### AI parsing failure
+
+`Pyrintu couldn't structure that schedule right now.`
+
+Actions:
+
+- Try again
+- Set it manually
+
+### Network failure
+
+`You're offline. Your changes can sync when you're connected again.`
+
+## Recovery Behavior
+
+If a partial update occurs:
+
+- preserve the last valid schedule
+- show the current unsaved change
+- allow retry
+- never silently reset the entire availability model
+
+If a schedule becomes invalid:
+
+`Let's fix one part of your availability before continuing.`
+
+Highlight only the problematic rule.
+
+## First-Time User Guide
+
+### Guide 04A — Availability
+
+**Target:** Availability summary / setup control
+
+**Message:** `Tell Pyrintu roughly when you're open so we can suggest opportunities that can actually happen.`
+
+**Primary action:** `Set availability`
+
+**Secondary action:** `Skip for now`
+
+This is a contextual extension of the progressive onboarding flow.
+
+## Accessibility Requirements
+
+- keyboard-accessible time controls
+- accessible weekday selectors
+- screen-reader-readable availability summaries
+- accessible slider alternative
+- clear focus states
+- errors announced
+- no color-only availability indicators
+- reduced-motion support
+- large touch targets
+- readable time formatting
+
+The user must be able to complete availability without dragging a visual calendar.
+
+## Responsive Behavior
+
+### Mobile
+
+Priority order:
+
+`Heading → Simple availability choice → Current availability → Edit → Flexibility → Notice preference → Summary → Continue`
+
+### Desktop
+
+Possible layout:
+
+- Left: availability controls
+- Right: live availability summary
+
+A dense calendar is optional, not the default.
+
+## Analytics Events
+
+- availability_viewed
+- availability_started
+- availability_preset_selected
+- availability_time_window_added
+- availability_time_window_removed
+- availability_recurring_rule_created
+- availability_exception_created
+- availability_flexibility_changed
+- availability_notice_preference_changed
+- availability_duration_preference_changed
+- natural_language_availability_started
+- ai_availability_structuring_requested
+- ai_availability_structuring_accepted
+- ai_availability_structuring_edited
+- availability_conflict_detected
+- availability_conflict_resolved
+- availability_saved
+- availability_completed
+- availability_skipped
+- availability_abandoned
+- availability_save_failed
+
+Do not place the user's detailed private schedule into generic analytics payloads.
+
+## Matching Boundary
+
+Screen 7 collects availability signals.
+
+It does not decide:
+
+- who the user should meet
+- whether a meetup is safe
+- whether an opportunity is available
+- whether another user is compatible
+
+Those belong to later systems.
+
+Availability is an input.
+
+## Acceptance Criteria
+
+### Simplicity
+
+- User can provide useful availability without filling a detailed calendar.
+- Presets make setup fast.
+- Natural language is supported.
+
+### Accuracy
+
+- Ambiguity is clarified.
+- Exceptions override recurring rules.
+- Conflicts are surfaced.
+- Uncertainty is represented.
+
+### Flexibility
+
+- User can choose a rough schedule.
+- User can specify exact windows when desired.
+- Notice preference is captured.
+- Flexibility is captured.
+
+### Privacy
+
+- Exact weekly availability is not automatically exposed to other users.
+- Calendar access is not required during onboarding.
+- No continuous location permission is requested.
+
+### AI
+
+- AI parses but does not invent precise availability.
+- AI-generated interpretation is reviewable.
+- AI failure never blocks manual setup.
+
+### Reliability
+
+- Autosave exists.
+- Failed saves preserve the previous valid state.
+
+### Accessibility
+
+- Keyboard accessible.
+- Screen-reader compatible.
+- No calendar dragging requirement.
+
+## Final Intended Experience
+
+```text
+"I don't need to schedule my whole life."
+        ↓
+"I can tell Pyrintu roughly when I'm open."
+        ↓
+"It understands my flexibility and notice preference."
+        ↓
+"It can now look for opportunities that can actually happen."
+```
+
+The experience should feel like opportunity readiness, not calendar administration.
+
+## Lock Note
+
+Screen 7 was reviewed and explicitly approved in product discussion. It is now locked as a UX contract on `feature/ux-screen-7`; implementation remains separate from the UX specification.
