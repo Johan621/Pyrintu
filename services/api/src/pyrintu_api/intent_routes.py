@@ -7,8 +7,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from .auth import AuthPrincipal
 from .db import get_session
-from .dependencies import get_current_user_id
+from .dependencies import get_current_principal
 from .models import IntentRecord
 from .schemas import IntentCreateRequest, IntentResponse, IntentSubmitRequest
 
@@ -50,12 +51,12 @@ def _response(record: IntentRecord) -> IntentResponse:
 @router.post("", response_model=IntentResponse, status_code=status.HTTP_201_CREATED)
 async def create_intent(
     payload: IntentCreateRequest,
-    user_id: UUID = Depends(get_current_user_id),
+    principal: AuthPrincipal = Depends(get_current_principal),
     session: AsyncSession = Depends(get_session),
 ) -> IntentResponse:
     parsed = _parse(payload.text)
     record = IntentRecord(
-        owner_user_id=user_id,
+        owner_user_id=principal.user_id,
         status="DRAFT",
         goal_type="experience",
         raw_input=payload.text.strip(),
@@ -78,11 +79,11 @@ async def create_intent(
 @router.get("/{intent_id}", response_model=IntentResponse)
 async def get_intent(
     intent_id: UUID,
-    user_id: UUID = Depends(get_current_user_id),
+    principal: AuthPrincipal = Depends(get_current_principal),
     session: AsyncSession = Depends(get_session),
 ) -> IntentResponse:
     record = await session.scalar(
-        select(IntentRecord).where(IntentRecord.id == intent_id, IntentRecord.owner_user_id == user_id)
+        select(IntentRecord).where(IntentRecord.id == intent_id, IntentRecord.owner_user_id == principal.user_id)
     )
     if record is None:
         raise HTTPException(status_code=404, detail="NOT_FOUND")
@@ -93,11 +94,11 @@ async def get_intent(
 async def submit_intent(
     intent_id: UUID,
     payload: IntentSubmitRequest,
-    user_id: UUID = Depends(get_current_user_id),
+    principal: AuthPrincipal = Depends(get_current_principal),
     session: AsyncSession = Depends(get_session),
 ) -> IntentResponse:
     record = await session.scalar(
-        select(IntentRecord).where(IntentRecord.id == intent_id, IntentRecord.owner_user_id == user_id)
+        select(IntentRecord).where(IntentRecord.id == intent_id, IntentRecord.owner_user_id == principal.user_id)
     )
     if record is None:
         raise HTTPException(status_code=404, detail="NOT_FOUND")
