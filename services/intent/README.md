@@ -1,6 +1,6 @@
 # Pyrintu Intent Creation MVP
 
-First end-to-end domain slice for turning a user's natural-language intent into a validated, structured Intent object.
+First vertical domain slice for turning a user's natural-language request into a validated, structured Intent object.
 
 ## Flow
 
@@ -8,6 +8,8 @@ First end-to-end domain slice for turning a user's natural-language intent into 
 Natural-language request
         ↓
 Intent interpreter
+   ┌────┴─────┐
+ deterministic  AI-backed
         ↓
 Structured Intent
         ↓
@@ -16,6 +18,6 @@ Domain validation
 In-memory persistence
 ```
 
-This MVP intentionally keeps persistence in memory. Database wiring will follow the approved schema once the core domain behavior is validated.
+The persistence boundary is intentionally in memory for this first slice. Database wiring will follow the approved schema after the core domain behavior is validated.
 
-The interpreter depends on the existing `PyrintuAIGateway` abstraction. A deterministic interpreter is used in tests so the domain behavior does not depend on a live model call.
+`AIIntentInterpreter` accepts a narrow text-generation interface so the application can wire the existing `PyrintuAIGateway` without making the domain package depend on a vendor SDK. Tests use a deterministic stub; no live model call is required to validate the domain behavior.
