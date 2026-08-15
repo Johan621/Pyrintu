@@ -16,6 +16,8 @@ on:
 jobs:
   api-tests:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: sqlite+aiosqlite:///./pyrintu-ci.db
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,5 +28,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e services/intent
           pip install -e "services/api[test]"
+      - name: Apply database migrations
+        working-directory: services/api
+        run: alembic upgrade head
       - name: Run tests
         run: pytest services/intent/tests services/api/tests
