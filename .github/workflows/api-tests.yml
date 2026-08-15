@@ -5,12 +5,14 @@ on:
     paths:
       - "services/api/**"
       - "services/intent/**"
+      - "services/discovery/**"
       - ".github/workflows/api-tests.yml"
   push:
     branches: [main]
     paths:
       - "services/api/**"
       - "services/intent/**"
+      - "services/discovery/**"
       - ".github/workflows/api-tests.yml"
 
 jobs:
@@ -23,13 +25,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install intent domain and API
+      - name: Install domain packages and API
         run: |
           python -m pip install --upgrade pip
           pip install -e services/intent
+          pip install -e services/discovery
           pip install -e "services/api[test]"
       - name: Apply database migrations
         working-directory: services/api
         run: alembic upgrade head
       - name: Run tests
-        run: pytest services/intent/tests services/api/tests
+        run: pytest services/intent/tests services/discovery/tests services/api/tests

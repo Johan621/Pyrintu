@@ -62,3 +62,17 @@ alembic current
 ```
 
 Set `DATABASE_URL` for the target environment. No secrets are committed.
+
+### MVP activity catalog (Discovery v1)
+
+Discovery reads structured activities from the `activities` table. A fresh environment has no catalog rows until you seed them explicitly.
+
+After migrations:
+
+```bash
+pip install -e ../intent -e ../discovery -e .
+alembic upgrade head
+python scripts/seed_mvp_activities.py
+```
+
+The seed is idempotent: existing catalog IDs are not duplicated. `GET /api/v1/opportunities` is read-only and does not seed or mutate opportunities.

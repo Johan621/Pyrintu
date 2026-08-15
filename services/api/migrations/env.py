@@ -7,7 +7,7 @@ from alembic import context
 from sqlalchemy import create_engine, pool
 
 from pyrintu_api.db import Base, database_url
-from pyrintu_api.models import IntentRecord, UserProfileRecord, UserRecord  # noqa: F401
+from pyrintu_api.models import ActivityRecord, IntentRecord, OpportunityRecord, UserProfileRecord, UserRecord  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:
