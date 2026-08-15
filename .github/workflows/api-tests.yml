@@ -30,9 +30,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e services/intent
           pip install -e services/discovery
+          pip install -e services/matching
           pip install -e "services/api[test]"
       - name: Apply database migrations
         working-directory: services/api
         run: alembic upgrade head
       - name: Run tests
-        run: pytest services/intent/tests services/discovery/tests services/api/tests
+        run: pytest services/intent/tests services/discovery/tests services/matching/tests services/api/tests
