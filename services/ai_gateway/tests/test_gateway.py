@@ -1,4 +1,5 @@
 from pyrintu_ai import AIRequest, AIResultType, MockProvider, PyrintuAIGateway
+from pyrintu_ai.context import AuthorizedAIContext
 
 
 def test_gateway_requires_authorized_context() -> None:
@@ -18,7 +19,9 @@ def test_gateway_forwards_only_authorized_context() -> None:
         AIRequest(
             user_input="Suggest something quiet.",
             result_type=AIResultType.SUGGESTION,
-            authorized_context="Venue A is verified and quiet.",
+            authorized_context=AuthorizedAIContext(
+                fields={"venue": "Venue A is verified and quiet."}
+            ),
         )
     )
 
@@ -39,9 +42,19 @@ def test_action_proposals_are_not_executed_by_gateway() -> None:
         AIRequest(
             user_input="Can we move it to 7 PM?",
             result_type=AIResultType.ACTION_PROPOSAL,
-            authorized_context="Current meetup time is 6 PM.",
+            authorized_context=AuthorizedAIContext(
+                fields={"current_meetup_time": "6 PM"}
+            ),
         )
     )
 
     assert response.result_type == AIResultType.ACTION_PROPOSAL
     assert response.text.startswith("Propose")
+
+
+def test_context_is_deterministically_formatted() -> None:
+    context = AuthorizedAIContext(
+        fields={"z": "last", "a": "first"}, context_version="2"
+    )
+
+    assert context.to_prompt_text() == "a: first\nz: last"
