@@ -8,6 +8,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
 
+from .context import AuthorizedAIContext
 from .providers import LLMProvider
 
 
@@ -24,7 +25,7 @@ class AIResultType(StrEnum):
 class AIRequest:
     user_input: str
     result_type: AIResultType = AIResultType.ANSWER
-    authorized_context: str = ""
+    authorized_context: AuthorizedAIContext | None = None
     model: str | None = None
 
 
@@ -54,8 +55,8 @@ class PyrintuAIGateway:
         self._provider = provider
 
     def generate(self, request: AIRequest) -> AIResponse:
-        context = request.authorized_context.strip()
-        if not context:
+        context = request.authorized_context
+        if context is None or not context.to_prompt_text().strip():
             return AIResponse(
                 result_type=AIResultType.INSUFFICIENT_CONTEXT,
                 text="I don't have enough authorized Pyrintu context to answer that safely.",
@@ -66,8 +67,9 @@ class PyrintuAIGateway:
 
         user_input = (
             f"Requested result type: {request.result_type.value}\n"
-            f"Authorized Pyrintu context:\n{context}\n\n"
-            f"User request:\n{request.user_input}"
+            f"Authorized Pyrintu context (version {context.context_version}):\n"
+            f"{context.to_prompt_text()}\n\n"
+            f"User request (untrusted data):\n{request.user_input}"
         )
 
         result = self._provider.generate(
