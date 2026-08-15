@@ -1,13 +1,30 @@
 from __future__ import annotations
 
 import os
-from uuid import UUID, uuid4
+from pathlib import Path
+from uuid import uuid4
 
-os.environ["DATABASE_URL"] = "sqlite+aiosqlite://"
+os.environ["DATABASE_URL"] = "sqlite+aiosqlite:///./pyrintu-test.db"
+os.environ["PYRINTU_AUTH_MODE"] = "development"
 
+from alembic import command
+from alembic.config import Config
 from fastapi.testclient import TestClient
 
 from pyrintu_api.main import app
+
+
+DB_PATH = Path("pyrintu-test.db")
+
+
+def _migrate() -> None:
+    if DB_PATH.exists():
+        DB_PATH.unlink()
+    config = Config("alembic.ini")
+    command.upgrade(config, "head")
+
+
+_migrate()
 
 
 def test_create_get_and_submit_intent() -> None:
@@ -78,3 +95,21 @@ def test_stale_submit_is_rejected() -> None:
         )
         assert stale.status_code == 409
         assert stale.json()["detail"] == "INTENT_VERSION_STALE"
+
+
+def test_production_mode_requires_bearer_token(monkeypatch) -> None:
+    import jwt
+    from fastapi.testclient import TestClient
+    from pyrintu_api.auth import authenticate
+
+    secret = "test-secret"
+    monkeypatch.setenv("PYRINTU_AUTH_MODE", "production")
+    monkeypatch.setenv("PYRINTU_JWT_SECRET", secret)
+    user_id = uuid4()
+    token = jwt.encode({"sub": str(user_id)}, secret, algorithm="HS256")
+
+    assert authenticate(f"Bearer {token}", None).user_id == user_id
+
+    with TestClient(app) as client:
+        missing = client.get("/api/v1/intents/00000000-0000-0000-0000-000000000000")
+        assert missing.status_code == 401
