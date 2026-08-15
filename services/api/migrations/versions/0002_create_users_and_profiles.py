@@ -24,9 +24,9 @@ def upgrade() -> None:
         sa.Column("status", sa.String(length=32), nullable=False),
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
         sa.Column("updated_at", sa.DateTime(timezone=True), nullable=False),
+        sa.UniqueConstraint("email", name="uq_users_email"),
+        sa.UniqueConstraint("phone", name="uq_users_phone"),
     )
-    op.create_unique_constraint("uq_users_email", "users", ["email"])
-    op.create_unique_constraint("uq_users_phone", "users", ["phone"])
 
     op.create_table(
         "user_profiles",
@@ -43,6 +43,4 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     op.drop_table("user_profiles")
-    op.drop_constraint("uq_users_phone", "users", type_="unique")
-    op.drop_constraint("uq_users_email", "users", type_="unique")
     op.drop_table("users")
