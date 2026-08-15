@@ -1,0 +1,30 @@
+[project]
+name = "pyrintu-api"
+version = "0.1.0"
+description = "Pyrintu application API"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1.0",
+  "uvicorn[standard]>=0.34,<1.0",
+  "sqlalchemy>=2.0,<3.0",
+  "pydantic>=2.0,<3.0",
+  "pydantic-settings>=2.0,<3.0",
+  "aiosqlite>=0.20,<1.0",
+  "psycopg[binary]>=3.2,<4.0",
+]
+
+[project.optional-dependencies]
+test = [
+  "httpx>=0.28,<1.0",
+  "pytest>=8.0,<9.0",
+  "pytest-asyncio>=0.25,<1.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

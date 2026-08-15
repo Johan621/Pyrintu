@@ -49,11 +49,16 @@ class IntentInterpreter:
                     break
 
         budget_max = None
-        digits = "".join(ch if ch.isdigit() else " " for ch in text).split()
-        if "under" in lowered and digits:
-            candidate = int(digits[0])
-            if candidate > 0:
-                budget_max = candidate
+        budget_tokens = lowered.split()
+        if "under" in budget_tokens:
+            under_index = budget_tokens.index("under")
+            for token in budget_tokens[under_index + 1 :]:
+                digits = "".join(ch for ch in token if ch.isdigit())
+                if digits:
+                    candidate = int(digits)
+                    if candidate > 0:
+                        budget_max = candidate
+                        break
 
         return ParsedIntent(
             goal=text,

@@ -1,0 +1,1 @@
+"""Pyrintu API service."""
