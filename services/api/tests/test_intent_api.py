@@ -14,13 +14,14 @@ from fastapi.testclient import TestClient
 from pyrintu_api.main import app
 
 
-DB_PATH = Path("pyrintu-test.db")
+BASE_DIR = Path(__file__).resolve().parents[1]
+DB_PATH = BASE_DIR / "pyrintu-test.db"
 
 
 def _migrate() -> None:
     if DB_PATH.exists():
         DB_PATH.unlink()
-    config = Config("alembic.ini")
+    config = Config(str(BASE_DIR / "alembic.ini"))
     command.upgrade(config, "head")
 
 
@@ -99,7 +100,6 @@ def test_stale_submit_is_rejected() -> None:
 
 def test_production_mode_requires_bearer_token(monkeypatch) -> None:
     import jwt
-    from fastapi.testclient import TestClient
     from pyrintu_api.auth import authenticate
 
     secret = "test-secret"
